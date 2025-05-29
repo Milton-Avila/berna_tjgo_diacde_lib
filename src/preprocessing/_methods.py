@@ -25,6 +25,7 @@ from nltk.stem import RSLPStemmer
 # NLTK start
 nltk.download("stopwords", quiet=True)
 nltk.download("rslp", quiet=True)
+nltk.download('punkt_tab', quiet=True)
 stop_words = set(stopwords.words("portuguese"))
 nlp = spacy.load("pt_core_news_sm")
 
@@ -47,18 +48,18 @@ def no_html(txt: str) -> str:
 #     # synonym of law
 #     return txt.replace("leis","lei").replace("complementares","complementar").replace("estaduais","estadual").replace("federais","federal").replace("portarias","portaria").replace("decretos","decreto").replace("resoluções","resolucao").replace("resolucoes","resolucao").replace("resolução","resolucao").replace("normas","norma").replace("ec.","lei").replace("ec","lei").replace("lei complementar","lei").replace("lei estadual","lei").replace("lei federal","lei").replace("norma","lei").replace("lei nº","lei").replace("lei n","lei").replace("lei n.","lei").replace("atos normativos","lei").replace("emenda constitucional","lei").replace("ato normativo","lei").replace("alterada pela","lei").replace("decreto-lei","lei").replace("decreto","lei").replace("resolucao","lei").replace("portaria","lei").replace("lei lei","lei").replace("adi"," lei")
 
-def replace_synonym_by_dict(txt: str) -> str:
-    table_dict = _read_binary()
+# def get_synonym_by_dict(txt: str) -> str:
+#     table_dict = _read_binary()
 
-    for _, row in table_dict.iterrows():
+#     for _, row in table_dict.iterrows():
 
-        for token in str(row["DE_PARA"]).split(","):
-            token = token.lower()
+#         for token in str(row["DE_PARA"]).split(","):
+#             token = token.lower()
 
-            if token in txt:
-                txt = txt.replace(token, row["PALAVRA"].strip(", ").lower())
+#             if token in txt:
+#                 txt = txt.replace(token, row["PALAVRA"].strip(", ").lower())
 
-    return txt
+#     return txt
 # ##
 
 def no_ponctuation(txt: str) -> str:
@@ -80,7 +81,8 @@ def stemming(txt: str) -> str:
     return " ".join(stemmed_tokens)
 
 def tokenize(txt: str) -> list:
-    return set([w for w in nltk.word_tokenize(" ".join(txt))])
+    print(txt)
+    return set([w for w in nltk.word_tokenize("".join(txt))])
 
 def only_latin(txt: str) -> str:
     return regex.sub(r"[^\p{IsLatin}\s\d\p{P}]", "", txt)
@@ -98,8 +100,8 @@ def no_email(txt: str) -> str:
     regex_emails_urls = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b|https?://\S+|www\.\S+"
     return re.sub(regex_emails_urls, "", txt).strip()
 
-def _read_binary() -> object:
-    file_local = pkg_resources.resource_filename(__name__, "data/sinonimos.pkl")
-    df_carregado = pd.read_pickle(file_local)
+# def _read_binary() -> object:
+#     file_local = pkg_resources.resource_filename(__name__, "data/sinonimos.pkl")
+#     df_carregado = pd.read_pickle(file_local)
 
-    return df_carregado
+#     return df_carregado

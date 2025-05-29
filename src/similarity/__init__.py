@@ -12,4 +12,3 @@ Este projeto está licenciado sob a Licença Attribution-NonCommercial-ShareAlik
 Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
 '''
 from .berna import Berna
-from src.preprocessing import preprocessing

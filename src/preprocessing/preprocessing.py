@@ -11,11 +11,8 @@ Created on Sun Jul 21 09:54:07 2024
 Este projeto está licenciado sob a Licença Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0). Você pode compartilhar, adaptar e construir sobre o material, desde que atribua crédito apropriado, não use o material para fins comerciais e distribua suas contribuições sob a mesma licença.
 Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
 """
-from src.config.packages import Packages
-from ._methods import (
-    no_html, replace_synonym_by_dict, no_ponctuation,no_stopwords,
-    lemmatize, stemming, tokenize, only_latin, no_numbers,
-    no_multiple_spaces, no_loose_letters, no_email)
+from ..config import Packages
+from . import _methods
 
 def clear(
     txt: str | list[str],
@@ -23,7 +20,7 @@ def clear(
     no_ponctuation: bool = False,
     no_loose_letters: bool = False,
     no_multiple_spaces: bool = False,
-    replace_synonym_by_dict: bool = False,
+    # get_synonym_by_dict: bool = False,
     no_html: bool = False,
     no_email: bool = False,
     no_numbers: bool = False,
@@ -49,7 +46,6 @@ def clear(
         no_html (bool, opcional): Se True, remove tags HTML.
         lemmatize (bool, opcional): Se True, realiza lematização no texto.
         stemming (bool, opcional): Se True, realiza stemming no texto.
-        replace_synonym_by_dict (bool, opcional): Se True, substitui sinônimos por um dicionário.
 
     Returns:
         str or list[str]: Texto processado ou lista de textos processados.
@@ -60,14 +56,16 @@ def clear(
         t,
             preset, no_ponctuation, no_multiple_spaces, no_loose_letters, 
             only_latin, no_email, no_numbers, no_stopwords, no_html, 
-            lemmatize, stemming, replace_synonym_by_dict
+            lemmatize, stemming
+            # , get_synonym_by_dict
         ) for t in txt]
     
     # Caso contrário, tratamos o texto como uma string
     return clear_single(
         txt, preset, no_ponctuation, no_multiple_spaces, no_loose_letters, 
         only_latin, no_email, no_numbers, no_stopwords, no_html, 
-        lemmatize, stemming, replace_synonym_by_dict
+        lemmatize, stemming
+        # , get_synonym_by_dict
     )
     
 def clear_single(
@@ -83,7 +81,7 @@ def clear_single(
     no_html: bool,
     lemmatize: bool,
     stemming: bool,
-    replace_synonym_by_dict: bool
+    # get_synonym_by_dict: bool
 ) -> str:
     
     if preset:
@@ -97,27 +95,27 @@ def clear_single(
         txt = txt.lower()
         
         if no_email:
-            txt = no_email(txt)
+            txt = _methods.no_email(txt)
         if no_html:
-            txt = no_html(txt)
-        if replace_synonym_by_dict:
-            txt = replace_synonym_by_dict(txt)
+            txt = _methods.no_html(txt)
+        # if get_synonym_by_dict:
+        #     txt = _methods.get_synonym_by_dict(txt)
         if no_ponctuation:
-            txt = no_ponctuation(txt)
+            txt = _methods.no_ponctuation(txt)
         if no_multiple_spaces:
-            txt = no_multiple_spaces(txt)
+            txt = _methods.no_multiple_spaces(txt)
         if no_loose_letters:
-            txt = no_loose_letters(txt)
+            txt = _methods.no_loose_letters(txt)
         if only_latin:
-            txt = only_latin(txt)
+            txt = _methods.only_latin(txt)
         if no_numbers:
-            txt = no_numbers(txt)
+            txt = _methods.no_numbers(txt)
         if no_stopwords:
-            txt = no_stopwords(txt)
+            txt = _methods.no_stopwords(txt)
         if lemmatize:
-            txt = lemmatize(txt)
+            txt = _methods.lemmatize(txt)
         if stemming:
-            txt = stemming(txt)
+            txt = _methods.stemming(txt)
         return txt
 
 if __name__=="__main__":
@@ -125,37 +123,34 @@ if __name__=="__main__":
     print(clear(["<span>Eu sou o primeiro texto de antonio! pires, incluindo leis, resoluções, normas legais.</span>", "Essa é uma frase que não contém um email, joao@gmail.com."], no_html=True, no_email=True, no_ponctuation=True, only_latin=True))
 
     # Teste func 2
-    print(lemmatize("Esse é um exemplo de um texto lematizado, com palavras reduzidas a sua raíz."))
+    print(_methods.lemmatize("Esse é um exemplo de um texto lematizado, com palavras reduzidas a sua raíz."))
 
     # Teste func 3
-    print(stemming("Esse é um exemplo de um texto lematizado, com palavras reduzidas a sua raíz."))
+    print(_methods.stemming("Esse é um exemplo de um texto lematizado, com palavras reduzidas a sua raíz."))
 
     # Teste func 4
-    print(no_ponctuation("Esse é um teste! e não devem haver pontuações nessa frase..."))
+    print(_methods.no_ponctuation("Esse é um teste! e não devem haver pontuações nessa frase..."))
     
     # Teste func 5
-    print(no_html("<script>Essa é uma frase sem palavras de css, </script>"))
+    print(_methods.no_html("<script>Essa é uma frase sem palavras de css, </script>"))
     
     # Teste func 6
-    print(no_stopwords("Esse é um exemplo de um texto sem stopwors, sem palavras de conjunção."))
+    print(_methods.no_stopwords("Esse é um exemplo de um texto sem stopwors, sem palavras de conjunção."))
 
     # # Teste func 7
-    # print(get_synonym("Método de sinonimos: Eu sou o primeiro texto de antonio pires, incluindo leis, resoluções, normas legais."))
-
+    # print(_methods.get_synonym_by_dict("Método de sinonimos por dicionário: Eu sou o primeiro texto de antonio pires, incluindo leis, resoluções, normas legais."))
+    
     # Teste func 8
-    print(replace_synonym_by_dict("Método de sinonimos por dicionário: Eu sou o primeiro texto de antonio pires, incluindo leis, resoluções, normas legais."))
+    print(_methods.no_multiple_spaces("  Esse   é um teste!   e não devem haver espaços extras   nessa frase..  ."))
     
     # Teste func 9
-    print(no_multiple_spaces("  Esse   é um teste!   e não devem haver espaços extras   nessa frase..  ."))
+    print(_methods.no_loose_letters("Esse é um exemplo de frase sem letras s soltas a i."))
     
     # Teste func 10
-    print(no_loose_letters("Esse é um exemplo de frase sem letras s soltas a i."))
+    print(_methods.only_latin("Essa é uma frase apenas com caracteres do alfabeto latin."))
     
     # Teste func 11
-    print(only_latin("Essa é uma frase apenas com caracteres do alfabeto latin."))
+    print(_methods.no_email("Essa é uma frase que não contém um email, joao@gmail.com."))
     
     # Teste func 12
-    print(no_email("Essa é uma frase que não contém um email, joao@gmail.com."))
-    
-    # Teste func 13
-    print(no_numbers("Essa é um5a frase q2ue não contém números 123 4 22 3 135"))
+    print(_methods.no_numbers("Essa é um5a frase q2ue não contém números 123 4 22 3 135"))
