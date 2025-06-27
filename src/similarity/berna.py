@@ -13,7 +13,8 @@ Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
 '''
 from nltk.cluster.util import cosine_distance
 # Módulo Integrado
-from src.preprocessing import preprocessing as prep
+from ..preprocessing import _methods
+from ..preprocessing import preprocessing as prep
 
 class Berna:
     def __init__(self, doc1: str, doc2: str, pre_process: bool = False) -> None:
@@ -34,8 +35,8 @@ class Berna:
         return self.similaridade_cosseno
 
     def calcula_similaridade_jaccard(self) -> None:
-        words1 = prep.tokenize(self.vec_terms1)
-        words2 = prep.tokenize(self.vec_terms2)
+        words1 = _methods.tokenize(self.vec_terms1)
+        words2 = _methods.tokenize(self.vec_terms2)
         
         union_terms =           len(words1 | words2)
         intersection_terms =    len(words1 & words2)
@@ -43,8 +44,8 @@ class Berna:
         self.similaridade_jaccard = round( (intersection_terms / union_terms) * 100, 4 )
 
     def calcula_similaridade_cosseno(self) -> None:
-        words1 = prep.tokenize(self.vec_terms1)
-        words2 = prep.tokenize(self.vec_terms2)
+        words1 = _methods.tokenize(self.vec_terms1)
+        words2 = _methods.tokenize(self.vec_terms2)
 
         union_terms = list(words1 | words2)
         l1 = [0] * len(union_terms)
@@ -68,7 +69,6 @@ class Berna:
                 stemming=True, 
                 lemmatize=True,
                 no_stopwords=True,
-                replace_synonym_by_dict=True
             )
 
         vetor = [w for w in txt.split()]
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # Teste métodos módulo Pré Processamento
     print('\nFrase sem pontuações: ' + prep.clear("Eu sou o primeiro texto de antonio pires, incluindo leis, resoluções, normas legais."))
     print('Frase com sinonimos filtrados e lematização: ' + prep.clear("Eu sou o primeiro texto de antonio pires, incluindo leis, resoluções, normas legais.", lemmatize=True, replace_synonym=True))
-    print('Frase com sinonimos filtrados por dicionário e stemming: ' + prep.clear("Eu sou o primeiro texto de antonio pires, incluindo leis, resoluções, normas legais.", stemming=True, replace_synonym_by_dict=True))
+    print('Frase com sinonimos filtrados por dicionário e stemming: ' + prep.clear("Eu sou o primeiro texto de antonio pires, incluindo leis, resoluções, normas legais.", stemming=True, get_synonym_by_dict=True))
 
     # Teste método estático
     print(f'\nUtilizando text_para_vetor estaticamente: {Berna.texto_para_vetor(None, "Eu sou o primeiro texto de antonio pires, incluindo leis, resoluções, normas legais.", True)}\n')

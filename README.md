@@ -2,7 +2,7 @@
 
 # Berna TJGO DIACDE Lib
 [![PyPI version](https://img.shields.io/pypi/v/berna-tjgo-diacde-lib)](https://pypi.org/project/berna-tjgo-diacde-lib/)
-[![License](https://img.shields.io/pypi/l/mkdocs-badges)](LICENSE.md)
+[![License](https://img.shields.io/pypi/l/mkdocs-badges)](https://github.com/TJGO-DIACDE/berna_tjgo_diacde_lib/blob/main/LICENSE.md)
 ![Python versions](https://img.shields.io/pypi/pyversions/mkdocs-badges)
 
 ## Documentation
@@ -93,75 +93,6 @@ texto_limpo = prep.clear(
     lemmatize=True,
     replace_synonym_by_dict=True,
 )
-```
-
-### Funções Isoladas:
-Também é possível utilizar cada uma das funções separadamente pelos seguintes métodos:
-
-#### `remove_email(txt: str) -> str`
-Remove endereços de e-mail do texto.
-```python
-prep.remove_email("Essa é uma frase com email: exemplo@email.com")
-```
-
-#### `remove_html(txt: str) -> str`
-Remove tags HTML do texto.
-```python
-prep.remove_html("<p>Texto com HTML</p>")
-```
-
-#### `remove_ponctuation(txt: str) -> str`
-Remove pontuação do texto.
-```python
-prep.remove_ponctuation("Texto com pontuação!")
-```
-
-#### `remove_multiple_espaces(txt: str) -> str`
-Remove espaços excessivos no texto.
-```python
-prep.remove_multiple_espaces("Texto   com   espaços  extras.")
-```
-
-#### `remove_loose_letters(txt: str) -> str`
-Remove letras soltas no texto.
-```python
-prep.remove_loose_letters("E s s e  é  u m  t e x t o")
-```
-
-#### `set_only_latin(txt: str) -> str`
-Mantém apenas caracteres do alfabeto latino.
-```python
-prep.set_only_latin("Texto com caracteres especiais: đ, ć, ł")
-```
-
-#### `remove_numbers(txt: str) -> str`
-Remove números do texto.
-```python
-prep.remove_numbers("Texto com números 12345")
-```
-
-#### `remove_stopwords(txt: str) -> str`
-Remove palavras de parada (stopwords) do texto.
-```python
-prep.remove_stopwords("Esse é um exemplo de um texto com stopwords.")
-```
-
-#### `lemmatize_txt(txt: str) -> str`
-Aplica lematização ao texto.
-```python
-prep.lemmatize_txt("Os carros estão correndo.")
-```
-
-#### `stem_txt(txt: str) -> str`
-Aplica stemming ao texto.
-```python
-prep.stem_txt("Correndo, correram, correria.")
-```
-
-#### `get_synonym_by_dict(txt: str) -> str`
-Substitui certas palavras por sinônimos definidos em um dicionário pré-definido.
-```python
-prep.get_synonym_by_dict("Incluindo leis, resoluções, normas legais.")
 ```
 
 # Módulo de Similaridade
@@ -256,7 +187,7 @@ Domingo, 21 de Julho de 2024, às 09:54:07
 - Não Comercial — Você não pode usar o material para fins comerciais.
 - Compartilhar Igual — Se você remixar, transformar ou criar a partir do material, deve distribuir suas contribuições sob a mesma licença que o original.
 
-Para mais detalhes, consulte o texto completo da licença no arquivo [LICENSE](./LICENSE.md) ou visite [CC BY-NC-SA 4.0 Legal Code](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+Para mais detalhes, consulte o texto completo da licença no arquivo [LICENSE](https://github.com/TJGO-DIACDE/berna_tjgo_diacde_lib/blob/main/LICENSE.md) ou visite [CC BY-NC-SA 4.0 Legal Code](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
 # Créditos
 A biblioteca Berna TJGO DIACDE foi desenvolvida pelo Tribunal de Justiça do Estado de Goiás, pela [Diretoria de Inteligência Artificial, Ciência de Dados e Estatística](https://github.com/TJGO-DIACDE) - <TJGOdiacde@tjgo.jus.br>.
